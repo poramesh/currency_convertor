@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Real Time Currency Converter</title> 
+	<style> 
+		.container { 
+		max-width: 500px; 
+		margin: auto; 
+		} 
+	</style> 
+</head> 
+<body> 
+	<div class="container"> 
+		<h1 style="text-align: center;color: green;"><u>Currency Converter</u></h1> 
+		<form action="/" method="POST" id="myform"> 
+			<h2>From :</h2> 
+			<input type="number" placeholder="Enter Amount" name="amount" min="0" value="{{amount}}" required="required"> 
+			<select required name="from_c" id="from_c"> 
+				<option value="">Choose Currency</option> 
+				{% if from_c_name %} 
+				<option value="{{from_c_code}}" selected>{{from_c_name}}</option> 
+				{% endif %} 
+
+				{% for row in rows %}
+				<option value="{{row[0]}}"> {{row[1]}}</option>
+				{% endfor %}
+			</select> 
+			<h2>To :</h2> 
+			<input type="number" placeholder="Result" style="background-color:cornsilk;color:mediumblue;font-weight:bold" value="{{result}}" readonly> 
+			<select required name="to_c" id="to_c"> 
+				<option value="">Choose Currency</option> 
+				{% if to_c_name %} 
+				<option value="{{to_c_code}}" selected>{{to_c_name}}</option> 
+				{% endif %} 
+
+				{% for row in rows %}
+				<option value="{{row[0]}}"> {{row[1]}}</option>
+				{% endfor %}
+			</select> 
+			<h2 style="text-align: center;"><input type="submit" style="width: 60px;height: 30px;" value="Convert"></h2> 
+		</form> 
+		{% if time %} 
+		<h4 style="color: red; text-align: center;">** Last Update on {{time}}</h4> 
+		{% endif %} 
+	</div> 
+</body> 
+</html>
+
+
+
+<!--If a form submission fails (e.g., due to validation errors), you often want to retain the user's input so
+ they don't have to re-enter all their data.
+By setting the value attribute to the user's input value, the form can
+ be re-rendered with the previously entered data.-->
